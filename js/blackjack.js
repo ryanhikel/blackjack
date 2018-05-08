@@ -8,6 +8,9 @@ let shuffledDeck = [];
 const $body = $('body');
 const $hit = $('.hit-me');
 const $stay = $('.stay');
+const $playerHand = $('.playerHand');
+const $dealerHand = $('.dealerHand');
+const $makeNewCard = $('<div></div>').addClass('card');
 
 function buildDeck() {
   for (let cardValues of values) {
@@ -31,16 +34,31 @@ function shuffleDeck() {
   }
   deck = shuffledDeck;
 }
-function initialDeal() {
+function initialDealPlayer() {
+  for (let i = 0; i <= 2; i++) {
+    $playerHand.append($makeNewCard);
+  }
+}
+function initialDealDealer() {
+  for (let i = 0; i <= 2; i++) {
+    $dealerHand.append($makeNewCard);
+  }
+}
+function startGame() {
+  buildDeck();
+  shuffleDeck();
+  initialDealPlayer();
+  initialDealDealer();
   
 }
-buildDeck();
-shuffleDeck();
+
 // clickevents
-$hit.click(function() {
+$hit.click(function () {
   console.log('hi');
 });
 $stay.click(function () {
   console.log('bye');
 });
-console.table(deck);
+console.log($dealerHand);
+console.log($playerHand);
+startGame();

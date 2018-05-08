@@ -1,3 +1,4 @@
+ /* header and nav */
 .container {
     margin: 0 auto;
     width: 980px;
@@ -11,27 +12,22 @@ header {
     background-color: black;
     color: white;
 }
-header .logo {
+.logo {
     float: left;
     height: 100%;
 }
 img{
     height: 80px;
 }
-header nav {
-    text-align: center;
-}
-
-header nav ul {
+ul {
     margin: 0;
     padding: 0;
     list-style-type: none;
 }
-header nav ul li:hover {
+li:hover {
     background-color: gray;
 }
-
-header nav ul li a {
+li a {
     display: block;
     font-size: 17px;
     padding: 39px;
@@ -39,11 +35,11 @@ header nav ul li a {
     text-decoration: none;
     text-transform: uppercase;
 }
-
 header nav > ul > li {
     float: left;
     position: relative;
 }
+/* body stuff */
 body{
     display: flex;
     align-items: space-between;
@@ -55,7 +51,7 @@ main{
     align-content: center;
 }
 section{
-    display: flex;
+    display: block;
     height: 500px;
     width: 33%;
     margin-top: 100px;
@@ -65,4 +61,10 @@ button{
     display: block;
     height: 50px;
     flex-flow: row wrap;
+}
+.card{
+    height: 200px;
+    width: 150px;
+    border: 2px solid black;
+    border-radius: 10%;
 }
