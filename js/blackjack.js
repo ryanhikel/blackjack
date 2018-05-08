@@ -10,54 +10,61 @@ const $hit = $('.hit-me');
 const $stay = $('.stay');
 const $playerHand = $('.playerHand');
 const $dealerHand = $('.dealerHand');
-const $makeNewCard = $('<div></div>').addClass('card');
 
+// functions
+function addCardPlayer() {
+    const $makeNewCard = $('<div></div>').addClass('card');
+    $playerHand.append($makeNewCard);
+}
+function addCardDealer() {
+    const $makeNewCard = $('<div></div>').addClass('card');
+    $dealerHand.append($makeNewCard);
+}
 function buildDeck() {
-  for (let cardValues of values) {
-    for (let cardSuits of suits) {
-      deck.push({
-        value: cardValues,
-        suit: cardSuits,
-      });
+    for (let cardValues of values) {
+        for (let cardSuits of suits) {
+            deck.push({
+                value: cardValues,
+                suit: cardSuits,
+            });
+        }
+        originalDeck = deck.slice(0);
     }
-    originalDeck = deck.slice(0);
-  }
 }
 function shuffleDeck() {
-  while (shuffledDeck.length < deck.length) {
-    let randomCard = Math.floor(Math.random() * 52);
-    let moveCard = deck[randomCard];
-    if (moveCard) {
-      deck.splice(randomCard, 1, null);
-      shuffledDeck.push(moveCard);
+    while (shuffledDeck.length < deck.length) {
+        let randomCard = Math.floor(Math.random() * 52);
+        let moveCard = deck[randomCard];
+        if (moveCard) {
+            deck.splice(randomCard, 1, null);
+            shuffledDeck.push(moveCard);
+        }
     }
-  }
-  deck = shuffledDeck;
+    deck = shuffledDeck;
 }
+
 function initialDealPlayer() {
-  for (let i = 0; i <= 2; i++) {
     $playerHand.append($makeNewCard);
-  }
 }
+
 function initialDealDealer() {
-  for (let i = 0; i <= 2; i++) {
     $dealerHand.append($makeNewCard);
-  }
 }
 function startGame() {
-  buildDeck();
-  shuffleDeck();
-  initialDealPlayer();
-  initialDealDealer();
-  
+    buildDeck();
+    shuffleDeck();
+    for (let i = 0; i < 2; i++) {
+        addCardPlayer();
+        addCardDealer();
+    }
 }
 
 // clickevents
 $hit.click(function () {
-  console.log('hi');
+    addCardPlayer();
 });
 $stay.click(function () {
-  console.log('bye');
+    console.log('bye');
 });
 console.log($dealerHand);
 console.log($playerHand);
