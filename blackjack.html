@@ -6,20 +6,52 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>BlackJack</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- <link rel="stylesheet" type="text/css" media="screen" href="css/blackjack.css" /> -->
+  <link rel="stylesheet" type="text/css" media="screen" href="css/blackjack.css" />
 
 
 </head>
 
 <body>
+  <header>
+    <div class="container">
+      <div class="logo">
+        <img src="images/black-jack-logo.jpg" />
+      </div>
+      <nav>
+        <ul>
+          <li class="has_dropdown">
+            <a href="index.html">Caffeine Casino</a>
+            <ul class="dropdown">
+              <li>
+                <a href="#">Game One</a>
+              </li>
+              <li>
+                <a href="#">Game Two</a>
+              </li>
+              <li>
+                <a href="#">Game Three</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
   <main>
-    <h1>BlackJack</h1>
-    <button class="hit-me">Hit Me!</button>
-    <button class="stay">Stay</button>
-    <!-- <button>
-      <a href="index.html">Take me back!</a>
-    </button> -->
+    <section>
+      <h1 class="hand" id="player">Player Hand</h1>
+    </section>
+    <section>
+      <button class="hit-me">Hit Me!</button>
+      <button class="stay">Stay</button>
+    </section>
+    <section>
+      <h1 class="hand" id="dealer">Dealer Hand</h1>
+    </section>
   </main>
+  <!-- <button>
+    <a href="index.html">Take me back!</a>
+  </button> -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
   <script src="js/blackjack.js"></script>

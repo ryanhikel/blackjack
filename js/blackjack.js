@@ -1,7 +1,7 @@
 const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
 const suits = ['♠️', '♣️', '♥️', '♦️'];
 let deck = [];
-let startingDeck = [];
+let originalDeck = [];
 let shuffledDeck = [];
 
 //  jQuery
@@ -17,7 +17,7 @@ function buildDeck() {
         suit: cardSuits,
       });
     }
-    startingDeck = deck.slice(0);
+    originalDeck = deck.slice(0);
   }
 }
 function shuffleDeck() {
@@ -31,6 +31,16 @@ function shuffleDeck() {
   }
   deck = shuffledDeck;
 }
+function initialDeal() {
+  
+}
 buildDeck();
 shuffleDeck();
+// clickevents
+$hit.click(function() {
+  console.log('hi');
+});
+$stay.click(function () {
+  console.log('bye');
+});
 console.table(deck);
