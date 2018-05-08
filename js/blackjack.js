@@ -3,7 +3,7 @@ const suits = ['♠️', '♣️', '♥️', '♦️'];
 let deck = [];
 let originalDeck = [];
 let shuffledDeck = [];
-const randomCard = Math.floor(Math.random()*52);
+
 
 //  jQuery
 const $body = $('body');
@@ -14,11 +14,13 @@ const $dealerHand = $('.dealerHand');
 
 // functions
 function addCardPlayer() {
-    const $makeNewCard = $('<div></div>').addClass('card').text(deck[randomCard].value);
+    const randomCard = Math.floor(Math.random() * 52);
+    const $makeNewCard = $('<div></div>').addClass('card').text(deck[randomCard].value + deck[randomCard].suit);
     $playerHand.append($makeNewCard);
 }
 function addCardDealer() {
-    const $makeNewCard = $('<div></div>').addClass('card').text(deck[randomCard].value);
+    const randomCard = Math.floor(Math.random() * 52);
+    const $makeNewCard = $('<div></div>').addClass('card').text(deck[randomCard].value + deck[randomCard].suit);
     $dealerHand.append($makeNewCard);
 }
 function buildDeck() {
