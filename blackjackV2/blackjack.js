@@ -58,24 +58,22 @@ function dealerDeal() {
     dealer.hand.push(newCard);
 }
 function addPlayerTotal() {
-    for (let i = 0; i < player.hand.length; i++) {
-        if (player.hand[i].value === 'J' || player.hand[i].value === 'Q' || player.hand[i].value === 'K') {
+    // for (let i = 0; i < player.hand.length; i++) {
+    if (player.hand[player.hand.length - 1].value === 'J' || player.hand[player.hand.length - 1].value === 'Q' || player.hand[player.hand.length - 1].value === 'K') {
             playerTotal += 10;
-        } else if ($.isNumeric(player.hand[i].value)) {
-            playerTotal += player.hand[i].value;
-        } else if (player.hand[i].value === 'A') {
+    } else if ($.isNumeric(player.hand[player.hand.length - 1].value)) {
+        playerTotal += player.hand[player.hand.length - 1].value;
+    } else if (player.hand[player.hand.length - 1].value === 'A') {
             console.log('a');
             
         }
-    }
+    // }
     console.log(playerTotal);
 }
 //event listeners
 $hit.click(function () {
     playerDeal();
     console.table(player.hand);
-    playerTotal();
-
 });
 $stay.click(function () {
     $hit.unbind();
