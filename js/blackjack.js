@@ -12,9 +12,9 @@ const $hit = $('.hit-me');
 const $stay = $('.stay');
 const $playerHand = $('.playerHand');
 const $dealerHand = $('.dealerHand');
-const $playerTotal = $('.player-total');
-const $dealerTotal = $('dealer-total');
-const $cardValue = $('section div.value');
+const $playerTotal = $('div#player-total');
+const $dealerTotal = $('div#dealer-total');
+
 // functions
 function buildDeck() {
   for (let cardValues of values) {
@@ -64,10 +64,13 @@ function addCardDealer() {
 }
 function addPlayerTotal() {
   // need to get the html for the card maybe use :first
-  if ($cardValue.html === 'J' || $cardValue.html === 'Q' || $cardValue.html === 'K') {
+  const $cardValue = $('div.value');
+  if ($cardValue.html() === 'J' || $cardValue.html() === 'Q' || $cardValue.html() === 'K') {
     playerTotal += 10;
+    $playerTotal.html(playerTotal);
   }
-  playerTotal += parseInt($cardValue.html);
+  playerTotal += $cardValue.html();
+  $playerTotal.html(playerTotal);
 }
 
 function startGame() {
@@ -88,9 +91,7 @@ $stay.click(function () {
   $hit.unbind();
   console.log('bye');
 });
-console.log($dealerHand);
-console.log($playerHand);
 startGame();
-console.table($cardValue);
+console.log($playerTotal.html());
 console.log(playerTotal);
 
