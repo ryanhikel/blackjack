@@ -52,7 +52,12 @@ function playerDeal() {
     const newCard = deck.pop();
     player.hand.push(newCard);
     addPlayerTotal();
+    if (checkAce() === true && (playerTotal + 10) <= 21) {
+        playerTotal += 10;
+    }
     checkPlayerWin();
+
+
 }
 function dealerDeal() {
     const newCard = deck.pop();
@@ -66,12 +71,6 @@ function addPlayerTotal() {
     } else if (player.hand[player.hand.length - 1].value === 'A') {
         playerTotal++;
     }
-
-    if (checkAce() !== true) {
-        noAce();
-    } else {
-        aceAdd();
-    }
     console.log(playerTotal);
 }
 function checkAce() {
@@ -80,19 +79,15 @@ function checkAce() {
     }
 }
 function noAce() {
-}
-function aceAdd() {
-    if ((playerTotal + 10) <= 21) {
-        playerTotal += 10;
-    }
+    console.log('nothing here');
 }
 function checkPlayerWin() {
     if (playerTotal === 21) {
         console.log('You Win!');
-        $hit.unbind(); 
-    }else if(playerTotal > 21){
-        console.log(`You went over by ${playerTotal-21}.`);
-        $hit.unbind();   
+        $hit.unbind();
+    } else if (playerTotal > 21) {
+        console.log(`You went over by ${playerTotal - 21}.`);
+        $hit.unbind();
     }
 }
 
