@@ -48,18 +48,19 @@ function shuffleDeck() {
 //shuffled the deck and made it equal to deck
 //i can pull random cards from here when the user presses hit
 //I want to remove cards from the deck array when it is initally dealt
-function playerInitialDeal() {
-    const startingCards = deck.pop();
-    player.hand.push(startingCards);
+function playerDeal() {
+    const newCard = deck.pop();
+    player.hand.push(newCard);
 }
-function dealerInitialDeal() {
-    const startingCards = deck.pop();
-    dealer.hand.push(startingCards);
+function dealerDeal() {
+    const newCard = deck.pop();
+    dealer.hand.push(newCard);
 }
 
 //event listeners
 $hit.click(function () {
-   console.log('hi');
+    playerDeal();
+   console.table(player.hand);
    
 });
 $stay.click(function () {
@@ -70,9 +71,10 @@ function startGame() {
     buildDeck();
     shuffleDeck();
     for (let i = 0; i < 2; i++) {
-        playerInitialDeal();
-        dealerInitialDeal();
+        playerDeal();
+        dealerDeal();
     }
 }
+startGame();
 console.table(player.hand);
 console.table(dealer.hand);
