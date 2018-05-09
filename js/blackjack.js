@@ -68,11 +68,11 @@ function addPlayerTotal() {
   if ($cardValue.html() === 'J' || $cardValue.html() === 'Q' || $cardValue.html() === 'K') {
     playerTotal += 10;
     $playerTotal.html(playerTotal);
+  } else if ($.isNumeric($cardValue.html()) === true) {
+    playerTotal += parseInt($cardValue.html());
+    $playerTotal.html(playerTotal);
   }
-  playerTotal += $cardValue.html();
-  $playerTotal.html(playerTotal);
 }
-
 function startGame() {
   buildDeck();
   shuffleDeck();
