@@ -52,24 +52,44 @@ function playerDeal() {
     const newCard = deck.pop();
     player.hand.push(newCard);
     addPlayerTotal();
+    checkPlayerWin();
 }
 function dealerDeal() {
     const newCard = deck.pop();
     dealer.hand.push(newCard);
 }
 function addPlayerTotal() {
-    // for (let i = 0; i < player.hand.length; i++) {
     if (player.hand[player.hand.length - 1].value === 'J' || player.hand[player.hand.length - 1].value === 'Q' || player.hand[player.hand.length - 1].value === 'K') {
-            playerTotal += 10;
+        playerTotal += 10;
     } else if ($.isNumeric(player.hand[player.hand.length - 1].value)) {
         playerTotal += player.hand[player.hand.length - 1].value;
     } else if (player.hand[player.hand.length - 1].value === 'A') {
-            console.log('a');
-            
-        }
-    // }
+        playerTotal++;
+    }
+
+    if (checkAce() !== true) {
+        noAce();
+    }else {
+        aceAdd();}
     console.log(playerTotal);
 }
+function checkAce() {
+    for (let i = 0; i < player.hand.length; i++) {
+        return player.hand[i].value === 'A';
+    }
+}
+function noAce() {
+
+}
+function aceAdd() {
+    if ((playerTotal + 10) < 21) {
+        playerTotal += 10;
+    }
+}
+function checkPlayerWin() {
+
+}
+
 //event listeners
 $hit.click(function () {
     playerDeal();
@@ -90,3 +110,4 @@ function startGame() {
 startGame();
 console.table(player.hand);
 console.table(dealer.hand);
+console.log(checkAce());
