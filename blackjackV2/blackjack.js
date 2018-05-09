@@ -89,10 +89,10 @@ function aceAdd() {
 function checkPlayerWin() {
     if (playerTotal === 21) {
         console.log('You Win!');
-        $hit.unbind(); 
-    }else if(playerTotal > 21){
-        console.log(`You went over by ${playerTotal-21}.`);
-        $hit.unbind();   
+        $hit.unbind();
+    } else if (playerTotal > 21) {
+        console.log(`You went over by ${playerTotal - 21}.`);
+        $hit.unbind();
     }
 }
 
