@@ -20,7 +20,14 @@ function addCardPlayer() {
 }
 function addCardDealer() {
     const randomCard = Math.floor(Math.random() * 52);
-    const $makeNewCard = $('<div></div>').addClass('card').text(deck[randomCard].value + deck[randomCard].suit);
+    const $makeNewCard = $('<div></div>').addClass('card');
+    const $makeValueSection = $('<div></div>').addClass('value');
+    const $makeSuitSection = $('<div></div>').addClass('suit');
+    $makeValueSection.text(deck[randomCard].value);
+    $makeSuitSection.text(deck[randomCard].suit);
+    //adds the value and suit to two different sub divs within my card objects
+    $makeNewCard.append($makeValueSection);
+    $makeNewCard.append($makeSuitSection);
     $dealerHand.append($makeNewCard);
 }
 function buildDeck() {
