@@ -109,3 +109,4 @@ startGame();
 console.log($playerTotal.html());
 console.log(playerTotal);
 
+console.table(deck);
