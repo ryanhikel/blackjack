@@ -14,6 +14,19 @@ const $playerHand = $('.playerHand');
 const $dealerHand = $('.dealerHand');
 const $playerTotal = $('div#player-total');
 const $dealerTotal = $('div#dealer-total');
+// store all game data within js objects
+//like this below
+const player = {
+  name: 'Ryan',
+  hand: [
+    {suit: 'hearts', value: 2 },
+    {suit: 'clubs', value: 2 },
+  ]
+}
+//worry about displaying to the html later on to avoid html dependency
+function render() {
+
+}
 
 // functions
 function buildDeck() {
@@ -64,14 +77,14 @@ function addCardDealer() {
 }
 function addPlayerTotal() {
   // need to get the html for the card maybe use :first
-  const $cardValue = $('div.value');
+  const $cardValue = $('div.value').last();
   if ($cardValue.html() === 'J' || $cardValue.html() === 'Q' || $cardValue.html() === 'K') {
     playerTotal += 10;
     $playerTotal.html(playerTotal);
   } else if ($.isNumeric($cardValue.html()) === true) {
     playerTotal += parseInt($cardValue.html());
-    $playerTotal.html(playerTotal);
-  }
+    $playerTotal.html('Total: ' + playerTotal);
+  }  
 }
 function startGame() {
   buildDeck();
@@ -86,6 +99,7 @@ function startGame() {
 // clickevents
 $hit.click(function () {
   addCardPlayer();
+  addPlayerTotal();
 });
 $stay.click(function () {
   $hit.unbind();
