@@ -69,8 +69,9 @@ function addPlayerTotal() {
 
     if (checkAce() !== true) {
         noAce();
-    }else {
-        aceAdd();}
+    } else {
+        aceAdd();
+    }
     console.log(playerTotal);
 }
 function checkAce() {
@@ -79,15 +80,20 @@ function checkAce() {
     }
 }
 function noAce() {
-
 }
 function aceAdd() {
-    if ((playerTotal + 10) < 21) {
+    if ((playerTotal + 10) <= 21) {
         playerTotal += 10;
     }
 }
 function checkPlayerWin() {
-
+    if (playerTotal === 21) {
+        console.log('You Win!');
+        $hit.unbind(); 
+    }else if(playerTotal > 21){
+        console.log(`You went over by ${playerTotal-21}.`);
+        $hit.unbind();   
+    }
 }
 
 //event listeners
