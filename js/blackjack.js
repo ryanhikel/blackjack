@@ -12,75 +12,85 @@ const $hit = $('.hit-me');
 const $stay = $('.stay');
 const $playerHand = $('.playerHand');
 const $dealerHand = $('.dealerHand');
-
+const $playerTotal = $('.player-total');
+const $dealerTotal = $('dealer-total');
+const $cardValue = $('section div.value');
 // functions
 function buildDeck() {
-    for (let cardValues of values) {
-        for (let cardSuits of suits) {
-            deck.push({
-                value: cardValues,
-                suit: cardSuits,
-            });
-        }
-        originalDeck = deck.slice(0);
+  for (let cardValues of values) {
+    for (let cardSuits of suits) {
+      deck.push({
+        value: cardValues,
+        suit: cardSuits,
+      });
     }
+    originalDeck = deck.slice(0);
+  }
 }
 function shuffleDeck() {
-    while (shuffledDeck.length < deck.length) {
-        let randomCard = Math.floor(Math.random() * 52);
-        let moveCard = deck[randomCard];
-        if (moveCard) {
-            deck.splice(randomCard, 1, null);
-            shuffledDeck.push(moveCard);
-        }
+  while (shuffledDeck.length < deck.length) {
+    let randomCard = Math.floor(Math.random() * 52);
+    let moveCard = deck[randomCard];
+    if (moveCard) {
+      deck.splice(randomCard, 1, null);
+      shuffledDeck.push(moveCard);
     }
-    deck = shuffledDeck;
+  }
+  deck = shuffledDeck;
 }
 function addCardPlayer() {
-    const randomCard = Math.floor(Math.random() * 52);
-    const $makeNewCard = $('<div></div>').addClass('card');
-    const $makeValueSection = $('<div></div>').addClass('value');
-    const $makeSuitSection = $('<div></div>').addClass('suit');
-    $makeValueSection.text(deck[randomCard].value);
-    $makeSuitSection.text(deck[randomCard].suit);
-    //adds the value and suit to two different sub divs within my card objects
-    $makeNewCard.append($makeValueSection);
-    $makeNewCard.append($makeSuitSection);
-    $playerHand.append($makeNewCard);
+  const randomCard = Math.floor(Math.random() * 52);
+  const $makeNewCard = $('<div></div>').addClass('card');
+  const $makeValueSection = $('<div></div>').addClass('value');
+  const $makeSuitSection = $('<div></div>').addClass('suit');
+  $makeValueSection.text(deck[randomCard].value);
+  $makeSuitSection.text(deck[randomCard].suit);
+  //adds the value and suit to two different sub divs within my card objects
+  $makeNewCard.append($makeValueSection);
+  $makeNewCard.append($makeSuitSection);
+  $playerHand.append($makeNewCard);
 }
 function addCardDealer() {
-    const randomCard = Math.floor(Math.random() * 52);
-    const $makeNewCard = $('<div></div>').addClass('card');
-    const $makeValueSection = $('<div></div>').addClass('value');
-    const $makeSuitSection = $('<div></div>').addClass('suit');
-    $makeValueSection.text(deck[randomCard].value);
-    $makeSuitSection.text(deck[randomCard].suit);
-    //adds the value and suit to two different sub divs within my card objects
-    $makeNewCard.append($makeValueSection).append($makeSuitSection);
+  const randomCard = Math.floor(Math.random() * 52);
+  const $makeNewCard = $('<div></div>').addClass('card');
+  const $makeValueSection = $('<div></div>').addClass('value');
+  const $makeSuitSection = $('<div></div>').addClass('suit');
+  $makeValueSection.text(deck[randomCard].value);
+  $makeSuitSection.text(deck[randomCard].suit);
+  //adds the value and suit to two different sub divs within my card objects
+  $makeNewCard.append($makeValueSection).append($makeSuitSection);
 
-    $dealerHand.append($makeNewCard);
+  $dealerHand.append($makeNewCard);
 }
 function addPlayerTotal() {
-    const $cardValue = this.$('');
+  // need to get the html for the card maybe use :first
+  if ($cardValue.html === 'J' || $cardValue.html === 'Q' || $cardValue.html === 'K') {
+    playerTotal += 10;
+  }
+  playerTotal += parseInt($cardValue.html);
 }
 
 function startGame() {
-    buildDeck();
-    shuffleDeck();
-    for (let i = 0; i < 2; i++) {
-        addCardPlayer();
-        addCardDealer();
-    }
+  buildDeck();
+  shuffleDeck();
+  for (let i = 0; i < 2; i++) {
+    addCardPlayer();
+    addPlayerTotal();
+    addCardDealer();
+  }
 }
 
 // clickevents
 $hit.click(function () {
-    addCardPlayer();
+  addCardPlayer();
 });
 $stay.click(function () {
-    $hit.unbind();
-    console.log('bye');
+  $hit.unbind();
+  console.log('bye');
 });
 console.log($dealerHand);
 console.log($playerHand);
 startGame();
+console.table($cardValue);
+console.log(playerTotal);
+
