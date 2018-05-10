@@ -49,21 +49,26 @@ function playerDeal() {
     const newCard = deck.pop();
     player.hand.push(newCard);
     addPlayerTotal();
-    aceToggle();
     checkPlayerWin();
 }
 function dealerDeal() {
     const newCard = deck.pop();
     dealer.hand.push(newCard);
     addDealerTotal();
-    aceToggle();
     checkDealerWin();
 }
 //toggle ace value
-function aceToggle() {
-    if (checkAce() === true && (dealerTotal + 10) <= 21) {
+function aceTogglePlayer() {
+    if (checkPlayerAce() === true && (playerTotal + 10) <= 21) {
+        playerTotal += 10;
+    } else if (checkPlayerAce() === true && (playerTotal + 10) > 21) {
+        playerTotal -= 10;
+    }
+}
+function aceToggleDealer() {
+    if (checkDealerAce() === true && (dealerTotal + 10) <= 21) {
         dealerTotal += 10;
-    } else if (checkAce() === true && (dealerTotal + 10) > 21) {
+    } else if (checkDealerAce() === true && (dealerTotal + 10) > 21) {
         dealerTotal -= 10;
     }
 }
@@ -85,14 +90,20 @@ function addDealerTotal() {
         dealerTotal++;
     }
 }
-function checkAce() {
+function checkPlayerAce() {
     for (let i = 0; i < player.hand.length; i++) {
         return player.hand[i].value === 'A';
     }
 }
+function checkDealerAce() {
+    for (let i = 0; i < dealer.hand.length; i++) {
+        return dealer.hand[i].value === 'A';
+    }
+}
 function checkPlayerWin() {
+    aceTogglePlayer();
     if (playerTotal === 21) {
-        console.log(`You Win! The dealer lost with ${dealerTotal}`);
+        console.log(`21! You Win!`);
         $hit.unbind();
     } else if (playerTotal > 21) {
         console.log(`You went over by ${playerTotal - 21}. The dealer wins with ${dealerTotal}`);
@@ -100,8 +111,9 @@ function checkPlayerWin() {
     }
 }
 function checkDealerWin() {
+    aceToggleDealer();
     if (dealerTotal === 21) {
-        console.log(`Natural 21! The dealer wins! You lost with ${playerTotal}`);
+        console.log(`21! The dealer wins!`);
         $hit.unbind();
         $stay.unbind();
     }
@@ -134,7 +146,7 @@ function startGame() {
         playerDeal();
         dealerDeal();
     }
-    
+    checkDealerWin();
 }
 //event listeners
 $hit.click(function () {
