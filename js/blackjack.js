@@ -1,112 +1,109 @@
+//normal variables
 const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
 const suits = ['♠️', '♣️', '♥️', '♦️'];
+const player = {
+    name: 'Ryan',
+    hand: [
+
+    ]
+};
+const dealer = {
+    name: 'Rebecca',
+    hand: [
+
+    ]
+};
 let deck = [];
 let originalDeck = [];
 let shuffledDeck = [];
 let playerTotal = 0;
 let dealerTotal = 0;
-
-//  jQuery
-const $body = $('body');
-const $hit = $('.hit-me');
+//jQuery vars
+const $hit = $('.hit');
 const $stay = $('.stay');
-const $playerHand = $('.playerHand');
-const $dealerHand = $('.dealerHand');
-const $playerTotal = $('div#player-total');
-const $dealerTotal = $('div#dealer-total');
-// store all game data within js objects
-//like this below
-const player = {
-  name: 'Ryan',
-  hand: [
-    {suit: 'hearts', value: 2 },
-    {suit: 'clubs', value: 2 },
-  ]
-}
-//worry about displaying to the html later on to avoid html dependency
-function render() {
-
-}
-
 // functions
 function buildDeck() {
-  for (let cardValues of values) {
-    for (let cardSuits of suits) {
-      deck.push({
-        value: cardValues,
-        suit: cardSuits,
-      });
+    for (let cardValues of values) {
+        for (let cardSuits of suits) {
+            deck.push({
+                value: cardValues,
+                suit: cardSuits,
+            });
+        }
+        originalDeck = deck.slice(0);
     }
-    originalDeck = deck.slice(0);
-  }
 }
+// i have the original deck saved before i shuffle it
 function shuffleDeck() {
-  while (shuffledDeck.length < deck.length) {
-    let randomCard = Math.floor(Math.random() * 52);
-    let moveCard = deck[randomCard];
-    if (moveCard) {
-      deck.splice(randomCard, 1, null);
-      shuffledDeck.push(moveCard);
+    while (shuffledDeck.length < deck.length) {
+        let randomCard = Math.floor(Math.random() * 52);
+        let moveCard = deck[randomCard];
+        if (moveCard) {
+            deck.splice(randomCard, 1, null);
+            shuffledDeck.push(moveCard);
+        }
     }
-  }
-  deck = shuffledDeck;
+    deck = shuffledDeck;
 }
-function addCardPlayer() {
-  const randomCard = Math.floor(Math.random() * 52);
-  const $makeNewCard = $('<div></div>').addClass('card');
-  const $makeValueSection = $('<div></div>').addClass('value');
-  const $makeSuitSection = $('<div></div>').addClass('suit');
-  $makeValueSection.text(deck[randomCard].value);
-  $makeSuitSection.text(deck[randomCard].suit);
-  //adds the value and suit to two different sub divs within my card objects
-  $makeNewCard.append($makeValueSection);
-  $makeNewCard.append($makeSuitSection);
-  $playerHand.append($makeNewCard);
-}
-function addCardDealer() {
-  const randomCard = Math.floor(Math.random() * 52);
-  const $makeNewCard = $('<div></div>').addClass('card');
-  const $makeValueSection = $('<div></div>').addClass('value');
-  const $makeSuitSection = $('<div></div>').addClass('suit');
-  $makeValueSection.text(deck[randomCard].value);
-  $makeSuitSection.text(deck[randomCard].suit);
-  //adds the value and suit to two different sub divs within my card objects
-  $makeNewCard.append($makeValueSection).append($makeSuitSection);
+//shuffled the deck and made it equal to deck
+//i can pull random cards from here when the user presses hit
+//I want to remove cards from the deck array when it is initally dealt
+function playerDeal() {
+    const newCard = deck.pop();
+    player.hand.push(newCard);
+    addPlayerTotal();
+    if (checkAce() === true && (playerTotal + 10) <= 21) {
+        playerTotal += 10;
+    } else if (checkAce() === true && (playerTotal + 10) > 21) {
+        playerTotal -= 10;
+    }
+    checkPlayerWin();
 
-  $dealerHand.append($makeNewCard);
+
+}
+function dealerDeal() {
+    const newCard = deck.pop();
+    dealer.hand.push(newCard);
 }
 function addPlayerTotal() {
-  // need to get the html for the card maybe use :first
-  const $cardValue = $('div.value').last();
-  if ($cardValue.html() === 'J' || $cardValue.html() === 'Q' || $cardValue.html() === 'K') {
-    playerTotal += 10;
-    $playerTotal.html(playerTotal);
-  } else if ($.isNumeric($cardValue.html()) === true) {
-    playerTotal += parseInt($cardValue.html());
-    $playerTotal.html('Total: ' + playerTotal);
-  }  
+    if (player.hand[player.hand.length - 1].value === 'J' || player.hand[player.hand.length - 1].value === 'Q' || player.hand[player.hand.length - 1].value === 'K') {
+        playerTotal += 10;
+    } else if ($.isNumeric(player.hand[player.hand.length - 1].value)) {
+        playerTotal += player.hand[player.hand.length - 1].value;
+    } else if (player.hand[player.hand.length - 1].value === 'A') {
+        playerTotal++;
+    }
 }
-function startGame() {
-  buildDeck();
-  shuffleDeck();
-  for (let i = 0; i < 2; i++) {
-    addCardPlayer();
-    addPlayerTotal();
-    addCardDealer();
-  }
+function checkAce() {
+    for (let i = 0; i < player.hand.length; i++) {
+        return player.hand[i].value === 'A';
+    }
+}
+function checkPlayerWin() {
+    if (playerTotal === 21) {
+        console.log('You Win!');
+        $hit.unbind();
+    } else if (playerTotal > 21) {
+        console.log(`You went over by ${playerTotal - 21}.`);
+        $hit.unbind();
+    }
 }
 
-// clickevents
+//event listeners
 $hit.click(function () {
-  addCardPlayer();
-  addPlayerTotal();
+    playerDeal();
+    console.table(player.hand);
 });
 $stay.click(function () {
-  $hit.unbind();
-  console.log('bye');
+    $hit.unbind();
+    console.log(`Your total is  ${playerTotal}. It is now the dealers turn.`);
 });
+function startGame() {
+    buildDeck();
+    shuffleDeck();
+    for (let i = 0; i < 2; i++) {
+        playerDeal();
+        dealerDeal();
+    }
+}
 startGame();
-console.log($playerTotal.html());
-console.log(playerTotal);
-
-console.table(deck);
