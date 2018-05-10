@@ -54,6 +54,8 @@ function playerDeal() {
     addPlayerTotal();
     if (checkAce() === true && (playerTotal + 10) <= 21) {
         playerTotal += 10;
+    } else if (checkAce() === true && (playerTotal + 10) > 21) {
+        playerTotal -= 10;
     }
     checkPlayerWin();
 
@@ -110,5 +112,4 @@ function startGame() {
 }
 startGame();
 console.table(player.hand);
-console.table(dealer.hand);
 console.log(checkAce());
