@@ -49,13 +49,17 @@ function playerDeal() {
     const newCard = deck.pop();
     player.hand.push(newCard);
     addPlayerTotal();
+    checkPlayerAce();
+    aceTogglePlayer();
     checkPlayerWin();
 }
 function dealerDeal() {
     const newCard = deck.pop();
     dealer.hand.push(newCard);
     addDealerTotal();
-    checkDealerWin();
+    checkDealerAce();
+    aceToggleDealer();
+    // checkDealerWin();
 }
 //toggle ace value
 function aceTogglePlayer() {
@@ -101,7 +105,6 @@ function checkDealerAce() {
     }
 }
 function checkPlayerWin() {
-    aceTogglePlayer();
     if (playerTotal === 21) {
         console.log(`21! You Win!`);
         $hit.unbind();
