@@ -1,80 +1,34 @@
- /* header and nav */
-.container {
-    margin: 0 auto;
-    width: 980px;
-    display: flex;
-}
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    padding-top: 15px;
-    background-color: black;
-    color: white;
-    justify-content: flex-start;
-    display: flex;
-}
-.logo {
-    float: left;
-    height: 100%;
-}
-img{
-    height: 80px;
-}
-ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-}
-li:hover {
-    background-color: gray;
-}
-li a {
-    display: block;
-    font-size: 17px;
-    padding: 39px;
-    color: #fff;
-    text-decoration: none;
-    text-transform: uppercase;
-}
-header nav > ul > li {
-    float: left;
-    position: relative;
-}
-/* body stuff */
 body{
-    display: flex;
-    align-items: space-between;
-    flex-flow: column nowrap;
-    margin-left: 40px;
+    background: lightcoral;
 }
 main{
-    display: flex;
-    align-content: center;
+    border: 2px solid white;
 }
 section{
-    display: block;
-    height: 500px;
-    width: 33%;
-    margin-top: 100px;
-    flex-flow: row nowrap;
+    border: 2px solid white;
+}
+div{
+    border: 2px solid white;
 }
 button{
-    display: block;
-    height: 50px;
-    flex-flow: row wrap;
+    width: 100px;
+    height: 50px; 
 }
-.card{
-    display: flex;
-    height: 200px;
-    width: 150px;
-    border: 2px solid black;
-    border-radius: 10%;
-    text-align: center;
+h1{
     font-size: 30px;
-    text-align: center;
-    justify-content: center;
+}
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-content: center;
     align-items: center;
+}
+
+.flex-item {
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
+    flex-direction: column;
 }
