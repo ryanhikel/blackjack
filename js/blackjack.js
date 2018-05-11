@@ -75,7 +75,6 @@ function dealCard(player, section, total) {
     $makeNewCard.append($makeValueSection);
     $makeNewCard.append($makeSuitSection);
     section.append($makeNewCard);
-
     if (!player.hasAce) checkAce(player);
     
     addTotal(player, total);

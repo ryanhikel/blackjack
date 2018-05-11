@@ -61,9 +61,9 @@ button:hover{
     align-items: center;
 }
 .card {
-    height: 200px;
-    width: 150px;
-    border-radius: 10%;
+    height: 300px;
+    width: 210px;
+    border-radius: 5%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -80,7 +80,11 @@ button:hover{
     text-align: center;
     min-width: 100px;
     max-width: 300px;
+}
 
+.hidden{
+    background-image: url('../images/cardbackred.png');
+    background-size: cover;
 }
 .slide-in-top {
 	-webkit-animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
