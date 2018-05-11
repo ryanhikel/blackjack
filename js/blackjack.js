@@ -1,26 +1,11 @@
 //normal variables
 const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
 const suits = ['♠️', '♣️', '♥️', '♦️'];
-const player = {
-    name: 'Ryan',
-    hasAce: false,
-    total: 0,
-    hand: [
-
-    ]
-};
-const dealer = {
-    name: 'Rebecca',
-    hasAce: false,
-    total: 0,
-    hand: [
-
-    ]
-};
 let deck = [];
 let originalDeck = [];
 let shuffledDeck = [];
-
+let player;
+let dealer;
 
 
 //jQuery vars
@@ -28,12 +13,30 @@ const $hit = $('.hit');
 const $stay = $('.stay');
 const $playerSection = $('.player');
 const $dealerSection = $('.dealer');
-let $playerTotalDisplay = $('.total-player');
-let $dealerTotalDisplay = $('.total-dealer');
 const $display = $('.display');
-
+const $playerTotalDisplay = $('.total-player');
+const $dealerTotalDisplay = $('.total-dealer');
+const $reset = $('.reset');
 
 // functions
+function makePeople() {
+    player = {
+        name: 'Ryan',
+        hasAce: false,
+        total: 0,
+        hand: [
+
+        ]
+    };
+    dealer = {
+        name: 'Rebecca',
+        hasAce: false,
+        total: 0,
+        hand: [
+
+        ]
+    };
+}
 function buildDeck() {
     for (let cardValues of values) {
         for (let cardSuits of suits) {
@@ -68,8 +71,10 @@ function dealCard(player, section, total) {
     $makeNewCard.append($makeValueSection);
     $makeNewCard.append($makeSuitSection);
     section.append($makeNewCard);
-    addTotal(player, total);
+
     if (!player.hasAce) checkAce(player);
+    
+    addTotal(player, total);
     aceToggle(player);
     checkPlayerWin();
 }
@@ -95,7 +100,7 @@ function checkAce(player) {
 function aceToggle(player) {
     if (player.hasAce && (player.total + 10) <= 21) {
         player.total += 10;
-    }
+    } 
 }
 function checkPlayerWin() {
     if (player.total === 21) {
@@ -110,7 +115,7 @@ function checkPlayerWin() {
 }
 function checkDealerWin() {
     if (dealer.total === 21) {
-        display.html(`21! The dealer wins!`);
+        $display.html(`21! The dealer wins!`);
         $hit.unbind();
         $stay.unbind();
     }
@@ -137,6 +142,7 @@ function checkOutcome() {
 }
 // startGame gives the starting two cards to the player and the dealer
 function startGame() {
+    makePeople();
     buildDeck();
     shuffleDeck();
     for (let i = 0; i < 2; i++) {
@@ -144,28 +150,33 @@ function startGame() {
         dealCard(dealer, $dealerSection, $dealerTotalDisplay);
     }
     checkDealerWin();
+    $hit.click(function () {
+        dealCard(player, $playerSection, $playerTotalDisplay);
+    });
+    $stay.click(function () {
+        $hit.unbind();
+        $display.html(`Your total is  ${player.total}. It is now the dealers turn.`);
+        $stay.unbind();
+        dealerLogic();
+    });
+}
+function resetTotal(who, totalDisplay) {
+    who.total = 0;
+    totalDisplay.html(`Total: 0`);
 }
 //event listeners
-$hit.click(function () {
-    dealCard(player, $playerSection, $playerTotalDisplay);
-});
-$stay.click(function () {
+
+$reset.click(function () {
+    deck = [];
+    originalDeck = [];
+    shuffledDeck = [];
+    $('.card').remove();
     $hit.unbind();
-    $display.html(`Your total is  ${player.total}. It is now the dealers turn.`);
     $stay.unbind();
-    dealerLogic();
+    $display.html(`Hit or Stay?`);
+    resetTotal(player, $playerTotalDisplay);
+    resetTotal(dealer, $dealerTotalDisplay);
+    startGame();
 });
 // start the game
 startGame();
-console.table(player.hand);
-console.table(dealer.hand);
-
-let arr = 0;
-function getMultiples() {
-    for (let i = 1; i <= 1000; i++) {
-        if (((i % 3) === 0) || ((i % 5) === 0)) {
-            arr+=i;
-        }
-    }
-}
-console.log(arr);
