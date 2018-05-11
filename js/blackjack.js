@@ -80,6 +80,7 @@ function dealCard(player, section, total) {
     
     addTotal(player, total);
     aceToggle(player);
+    aceOff(player, total);
     checkPlayerWin();
 }
 
@@ -102,9 +103,15 @@ function checkAce(player) {
     }
 }
 function aceToggle(player) {
-    if (player.hasAce && (player.total + 10) <= 21) {
+    if (player.hasAce && ((player.total + 10) <= 21)) {
         player.total += 10;
     } 
+}
+function aceOff(player, total) {
+    if (player.hasAce && ((player.total) > 21)) {
+        player.total -= 10;
+    } 
+    total.html(`Total: ${player.total}`);
 }
 function checkPlayerWin() {
     if (player.total === 21) {
