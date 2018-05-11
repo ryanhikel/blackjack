@@ -89,7 +89,13 @@ button:hover{
 
 @media (max-width: 700px) {
     .card{
-        max-height: 180px;
+        max-height: 165px;
+    }
+    main{
+        max-width: 430px;
+    }
+    header{
+        background: transparent;
     }
 }
 
