@@ -6,7 +6,9 @@ let originalDeck = [];
 let shuffledDeck = [];
 let player;
 let dealer;
-
+let win = 0;
+let tie = 0;
+let loss = 0;
 
 //jQuery vars
 const $hit = $('.hit');
@@ -17,7 +19,9 @@ const $display = $('.display');
 const $playerTotalDisplay = $('.total-player');
 const $dealerTotalDisplay = $('.total-dealer');
 const $reset = $('.reset');
-
+const $win = $('.win');
+const $tie = $('.tie');
+const $loss = $('.loss');
 // functions
 function makePeople() {
     player = {
@@ -105,10 +109,14 @@ function aceToggle(player) {
 function checkPlayerWin() {
     if (player.total === 21) {
         $display.html(`21! You Win!`);
+        win++;
+        $win.html(`Wins: ${win}`);
         $hit.unbind();
         $stay.unbind();
     } else if (player.total > 21) {
         $display.html(`You went over by ${player.total - 21}. The dealer wins with ${dealer.total}`);
+        loss++;
+        $loss.html(`Losses: ${loss}`);
         $hit.unbind();
         $stay.unbind();
     }
@@ -116,6 +124,8 @@ function checkPlayerWin() {
 function checkDealerWin() {
     if (dealer.total === 21) {
         $display.html(`21! The dealer wins!`);
+        loss++;
+        $loss.html(`Losses: ${loss}`);
         $hit.unbind();
         $stay.unbind();
     }
@@ -130,14 +140,24 @@ function dealerLogic() {
 function checkOutcome() {
     if (dealer.total === 21) {
         $display.html(`The dealer wins! You lost with ${player.total}`);
+        loss++;
+        $loss.html(`Losses: ${loss}`);
     } else if (dealer.total > 21) {
         $display.html(`The dealer went over by ${dealer.total - 21}. You win with ${player.total}`);
+        win++;
+        $win.html(`Wins: ${win}`);
     } else if (player.total === dealer.total) {
         $display.html(`You and the dealer tie with ${dealer.total}`);
+        tie++;
+        $tie.html(`Ties: ${tie}`);
     } else if (player.total > dealer.total) {
         $display.html(`You Win! The dealer lost by ${player.total - dealer.total}`);
+        win++;
+        $win.html(`Wins: ${win}`);
     } else if (dealer.total > player.total) {
         $display.html(`You lose. The dealer won by ${dealer.total - player.total}`);
+        loss++;
+        $loss.html(`Losses: ${loss}`);
     }
 }
 // startGame gives the starting two cards to the player and the dealer

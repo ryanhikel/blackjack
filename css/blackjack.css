@@ -36,7 +36,13 @@ button{
 button:hover{
     background-color: rgb(93, 129, 169);
 }
-
+.score-board{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 10px;
+    min-width: 100px;;
+}
 .flex-container {
     display: flex;
     flex-flow: row nowrap;
@@ -72,7 +78,9 @@ button:hover{
 }
 .display{
     text-align: center;
-    max-width: 100px;
+    min-width: 100px;
+    max-width: 300px;
+
 }
 .slide-in-top {
 	-webkit-animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
