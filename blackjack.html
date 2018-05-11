@@ -6,14 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <link rel="stylesheet" type="text/css" media="screen" href="css/blackjack.css" />
 
 </head>
 
 <body>
-    
-    <button class="hit">Hit Me!</button>
-    <button class="stay">Stay</button>
+    <header>
+        <a href="index.html"><img src="images/black-jack-logo.jpg" alt="BlackJack Logo"></a>
+    </header>
+    <main>
+        <section class="player flex-item">
+            <h1 class="player-name">Player</h1>
+            <h1 class="total-player"></h1>
+
+        </section>
+        <section class=" flex-item">
+            <button class="hit">Hit Me!</button>
+            <button class="stay">Stay</button>
+            <div>
+                <h1 class="display">Hit or Stay?</h1>
+            </div>
+            <button class="reset">Play Again?</button>
+        </section>
+        <section class="dealer flex-item">
+            <h1 class="dealer-name">Dealer</h1>
+            <h1 class="total-dealer"></h1>
+        </section>
+    </main>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="js/blackjack.js"></script>

@@ -26,6 +26,13 @@ let shuffledDeck = [];
 //jQuery vars
 const $hit = $('.hit');
 const $stay = $('.stay');
+const $playerSection = $('.player');
+const $dealerSection = $('.dealer');
+let $playerTotalDisplay = $('.total-player');
+let $dealerTotalDisplay = $('.total-dealer');
+const $display = $('.display');
+
+
 // functions
 function buildDeck() {
     for (let cardValues of values) {
@@ -50,24 +57,24 @@ function shuffleDeck() {
     deck = shuffledDeck;
 }
 // on every card dealt it will update the total and check for a win.
-function playerDeal() {
+function dealCard(player, section, total) {
     const newCard = deck.pop();
     player.hand.push(newCard);
-    addPlayerTotal();
+    const $makeNewCard = $('<div></div>').addClass('card slide-in-top');
+    const $makeValueSection = $('<div></div>').addClass('value');
+    const $makeSuitSection = $('<div></div>').addClass('suit');
+    $makeValueSection.html(player.hand[player.hand.length - 1].value);
+    $makeSuitSection.html(player.hand[player.hand.length - 1].suit);
+    $makeNewCard.append($makeValueSection);
+    $makeNewCard.append($makeSuitSection);
+    section.append($makeNewCard);
+    addTotal(player, total);
     if (!player.hasAce) checkAce(player);
     aceToggle(player);
     checkPlayerWin();
 }
-function dealerDeal() {
-    const newCard = deck.pop();
-    dealer.hand.push(newCard);
-    addDealerTotal();
-    if (!dealer.hasAce) checkAce(dealer);
-    aceToggle(dealer);
-}
-//toggle ace value
 
-function addPlayerTotal() {
+function addTotal(player, total) {
     if (player.hand[player.hand.length - 1].value === 'J' || player.hand[player.hand.length - 1].value === 'Q' || player.hand[player.hand.length - 1].value === 'K') {
         player.total += 10;
     } else if ($.isNumeric(player.hand[player.hand.length - 1].value)) {
@@ -75,21 +82,9 @@ function addPlayerTotal() {
     } else if (player.hand[player.hand.length - 1].value === 'A') {
         player.total++;
     }
+    total.html(`Total: ${player.total}`);
 }
-function addDealerTotal() {
-    if (dealer.hand[dealer.hand.length - 1].value === 'J' || dealer.hand[dealer.hand.length - 1].value === 'Q' || dealer.hand[dealer.hand.length - 1].value === 'K') {
-        dealer.total += 10;
-    } else if ($.isNumeric(dealer.hand[dealer.hand.length - 1].value)) {
-        dealer.total += dealer.hand[dealer.hand.length - 1].value;
-    } else if (dealer.hand[dealer.hand.length - 1].value === 'A') {
-        dealer.total++;
-    }
-}
-
-
 function checkAce(player) {
-    console.log('hi');
-    
     for (let i = 0; i < player.hand.length; i++) {
         if (player.hand[i].value === 'A') {
             player.hasAce = true;
@@ -102,43 +97,42 @@ function aceToggle(player) {
         player.total += 10;
     }
 }
-
 function checkPlayerWin() {
     if (player.total === 21) {
-        console.log(`21! You Win!`);
+        $display.html(`21! You Win!`);
         $hit.unbind();
         $stay.unbind();
     } else if (player.total > 21) {
-        console.log(`You went over by ${player.total - 21}. The dealer wins with ${dealer.total}`);
+        $display.html(`You went over by ${player.total - 21}. The dealer wins with ${dealer.total}`);
         $hit.unbind();
         $stay.unbind();
     }
 }
 function checkDealerWin() {
     if (dealer.total === 21) {
-        console.log(`21! The dealer wins!`);
+        display.html(`21! The dealer wins!`);
         $hit.unbind();
         $stay.unbind();
     }
 }
 function dealerLogic() {
     while (dealer.total <= 15) {
-        dealerDeal();
+        dealCard(dealer, $dealerSection, $dealerTotalDisplay);
     }
     checkOutcome();
     console.table(dealer.hand);
 }
 function checkOutcome() {
     if (dealer.total === 21) {
-        console.log(`The dealer wins! You lost with ${player.total}`);
+        $display.html(`The dealer wins! You lost with ${player.total}`);
     } else if (dealer.total > 21) {
-        console.log(`The dealer went over by ${dealer.total - 21}. You win with ${player.total}`);
+        $display.html(`The dealer went over by ${dealer.total - 21}. You win with ${player.total}`);
     } else if (player.total === dealer.total) {
-        console.log(`You and the dealer tie with ${dealer.total}`);
+        $display.html(`You and the dealer tie with ${dealer.total}`);
     } else if (player.total > dealer.total) {
-        console.log(`You Win! The dealer lost by ${player.total - dealer.total}`);
+        $display.html(`You Win! The dealer lost by ${player.total - dealer.total}`);
     } else if (dealer.total > player.total) {
-        console.log(`You lose. The dealer won by ${dealer.total - player.total}`);
+        $display.html(`You lose. The dealer won by ${dealer.total - player.total}`);
     }
 }
 // startGame gives the starting two cards to the player and the dealer
@@ -146,18 +140,18 @@ function startGame() {
     buildDeck();
     shuffleDeck();
     for (let i = 0; i < 2; i++) {
-        playerDeal();
-        dealerDeal();
+        dealCard(player, $playerSection, $playerTotalDisplay);
+        dealCard(dealer, $dealerSection, $dealerTotalDisplay);
     }
     checkDealerWin();
 }
 //event listeners
 $hit.click(function () {
-    playerDeal();
+    dealCard(player, $playerSection, $playerTotalDisplay);
 });
 $stay.click(function () {
     $hit.unbind();
-    console.log(`Your total is  ${player.total}. It is now the dealers turn.`);
+    $display.html(`Your total is  ${player.total}. It is now the dealers turn.`);
     $stay.unbind();
     dealerLogic();
 });
@@ -165,3 +159,13 @@ $stay.click(function () {
 startGame();
 console.table(player.hand);
 console.table(dealer.hand);
+
+let arr = 0;
+function getMultiples() {
+    for (let i = 1; i <= 1000; i++) {
+        if (((i % 3) === 0) || ((i % 5) === 0)) {
+            arr+=i;
+        }
+    }
+}
+console.log(arr);
