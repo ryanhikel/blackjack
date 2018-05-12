@@ -117,12 +117,13 @@ function addTotal(player, total) {
 }
 // leave the ace as 11 or subtract 10 if total is over 21
 function aceToggle(player, total) {
-  if (player.hasAce && ((player.total + 10) > 21)) {
+  if (player.hasAce && player.total > 21) {
     player.total -= 10;
   }
   total.html = `Total: ${player.total}`;
 }
 // now check for the player win with this function
+// natural player 21 is not registering as a win
 function checkWinner() {
   if (player.total === 21) {
     $displayMessage.html(`21! You Win!`);
