@@ -76,7 +76,7 @@ function dealCard(player, section, total) {
     $makeNewCard.append($makeSuitSection);
     section.append($makeNewCard);
     if (!player.hasAce) checkAce(player);
-    
+
     addTotal(player, total);
     aceToggle(player);
     aceOff(player, total);
@@ -104,12 +104,12 @@ function checkAce(player) {
 function aceToggle(player) {
     if (player.hasAce && ((player.total + 10) <= 21)) {
         player.total += 10;
-    } 
+    }
 }
 function aceOff(player, total) {
     if (player.hasAce && ((player.total) > 21)) {
         player.total -= 10;
-    } 
+    }
     total.html(`Total: ${player.total}`);
 }
 function checkPlayerWin() {
@@ -137,7 +137,7 @@ function checkDealerWin() {
     }
 }
 function dealerLogic() {
-    while (dealer.total <= 15) {
+    while (dealer.total < player.total) {
         dealCard(dealer, $dealerSection, $dealerTotalDisplay);
     }
     checkOutcome();
