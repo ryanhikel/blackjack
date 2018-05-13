@@ -69,27 +69,35 @@ function makePeople() {
 
 // we have a deck and people now we need to deal to them
 // this function deals one card
-function dealCard(player, section, total) {
+function dealCard(player, section, total, hide) {
   // this will hold one random deck card as it has already been shuffled and push to the players hand
   const newCard = deck.pop();
   player.hand.push(newCard);
   // makes a new card div and adds a class
   // this needs to be in the function so it creates a new card every time it is called
-  const $newCardElement = $('<div></div>').addClass('card slide-in-top');
-  // this will make a value and suit it to the card element
-  const $makeValueSection = $('<div></div>').addClass('value');
-  const $makeSuitSection = $('<div></div>').addClass('suit');
-  $makeValueSection.html(player.hand[player.hand.length - 1].value);
-  $makeSuitSection.html(player.hand[player.hand.length - 1].suit);
-  $newCardElement.append($makeValueSection).append($makeSuitSection);
-  //now add this div to the players or dealers section
-  section.append($newCardElement);
+  if (hide === true) {
+    const $newCardElement = $('<div></div>').addClass('card hide slide-in-tl');
+    
+    //now add this div to the players or dealers section
+    section.append($newCardElement);
+  } else {
+    const $newCardElement = $('<div></div>').addClass('card slide-in-tl');
+    // this will make a value and suit it to the card element
+    const $makeValueSection = $('<div></div>').addClass('value');
+    const $makeSuitSection = $('<div></div>').addClass('suit');
+    $makeValueSection.html(player.hand[player.hand.length - 1].value);
+    $makeSuitSection.html(player.hand[player.hand.length - 1].suit);
+    $newCardElement.append($makeValueSection).append($makeSuitSection);
+    //now add this div to the players or dealers section
+    section.append($newCardElement);
+  }
   // cool one line if statement mike showed me to check if player has ace
   if (!player.hasAce) checkAce(player);
   // update the total every time a card is dealt
   addTotal(player, total);
   // toggle the value of the ace depending on the total
   aceToggle(player, total);
+  aceOff(player, total);
   // run this during your turn
   checkWinner();
 }
@@ -103,7 +111,6 @@ function checkAce(player) {
     }
   }
 }
-
 // following the order lets add the total of the card we dealt
 function addTotal(player, total) {
   if (player.hand[player.hand.length - 1].value === 'J' || player.hand[player.hand.length - 1].value === 'Q' || player.hand[player.hand.length - 1].value === 'K') {
@@ -111,16 +118,22 @@ function addTotal(player, total) {
   } else if ($.isNumeric(player.hand[player.hand.length - 1].value)) {
     player.total += player.hand[player.hand.length - 1].value;
   } else if (player.hand[player.hand.length - 1].value === 'A') {
-    player.total += 11;
+    player.total++;
   }
-  total.text(`Total: ${player.total}`);
+  total.html(`Total: ${player.total}`);
 }
 // leave the ace as 11 or subtract 10 if total is over 21
 function aceToggle(player, total) {
-  if (player.hasAce && player.total > 21) {
+  if (player.hasAce && ((player.total + 10) <= 21)) {
+    player.total += 10;
+  }
+  total.html(`Total: ${player.total}`);
+}
+function aceOff(player, total) {
+  if (player.hasAce && (player.total > 21)) {
     player.total -= 10;
   }
-  total.html = `Total: ${player.total}`;
+  total.html(`Total: ${player.total}`);
 }
 // now check for the player win with this function
 // natural player 21 is not registering as a win
@@ -150,7 +163,7 @@ function checkWinner() {
 // give the dealer a 'brain'
 function dealerLogic() {
   while (dealer.total < player.total) {
-    dealCard(dealer, $dealerSection, $dealerTotalDisplay);
+    dealCard(dealer, $dealerSection, false, false);
   }
   // when it is the dealers turn we no longer use the check winner function
   checkOutcome();
@@ -183,18 +196,27 @@ function startGame() {
   shuffleDeck();
   makePeople();
   // deal two cards initially to each
-  for (let i = 0; i < 2; i++) {
-    dealCard(player, $playerSection, $playerTotalDisplay);
-    dealCard(dealer, $dealerSection, $dealerTotalDisplay);
-  }
+  // for (let i = 0; i < 2; i++) {
+  dealCard(player, $playerSection, $playerTotalDisplay, false);
+  dealCard(dealer, $dealerSection, $dealerTotalDisplay, true);
+  dealCard(player, $playerSection, $playerTotalDisplay, false);
+  dealCard(dealer, $dealerSection, $dealerTotalDisplay, false);
+  // }
   // add some button functionality
   $hit.click(function () {
-    dealCard(player, $playerSection, $playerTotalDisplay);
+    dealCard(player, $playerSection, $playerTotalDisplay, false);
   });
   $stay.click(function () {
     $hit.unbind();
     $stay.unbind();
     $displayMessage.html(`Your total is  ${player.total}. It is now the dealers turn.`);
+    const $showVal =$('div.hide');
+    const $makeValueSection = $('<div></div>').addClass('value');
+    const $makeSuitSection = $('<div></div>').addClass('suit');
+    $makeValueSection.html(dealer.hand[0].value);
+    $makeSuitSection.html(dealer.hand[0].suit);
+    $showVal.append($makeValueSection).append($makeSuitSection);
+    $showVal.toggleClass('hide');
     // now the dealer logic must kick in
     dealerLogic();
   });
