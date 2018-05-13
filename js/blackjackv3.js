@@ -163,7 +163,7 @@ function checkWinner() {
 // give the dealer a 'brain'
 function dealerLogic() {
   while (dealer.total < player.total) {
-    dealCard(dealer, $dealerSection, false, false);
+    dealCard(dealer, $dealerSection, false);
   }
   // when it is the dealers turn we no longer use the check winner function
   checkOutcome();
