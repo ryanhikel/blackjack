@@ -142,9 +142,9 @@ function checkWinner() {
     $displayMessage.html(`21! You Win!`);
     win++;
     $winTotal.html(`Wins: ${win}`);
-    // win tie or loss you want to make the buttons unclickable
     $hit.unbind();
     $stay.unbind();
+    // win tie or loss you want to make the buttons unclickable
   } else if (dealer.total === 21) {
     $displayMessage.html(`21! The dealer wins!`);
     loss++;
@@ -163,7 +163,7 @@ function checkWinner() {
 // give the dealer a 'brain'
 function dealerLogic() {
   while (dealer.total < player.total) {
-    dealCard(dealer, $dealerSection, false);
+    dealCard(dealer, $dealerSection, $dealerTotalDisplay, false);
   }
   // when it is the dealers turn we no longer use the check winner function
   checkOutcome();
