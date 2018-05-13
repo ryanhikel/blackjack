@@ -1,13 +1,11 @@
 header{
-    height: 80px;
-    /* top tells how far the margin is from its container */
-    top: 0;
-    width: 100%;
     position: fixed;
-    overflow: hidden;
-    background-color: rgb(75, 169, 14);
-    border-bottom: 5px solid black;
-    margin: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-color: darkred;
+    box-shadow: 0px 1px 20px #444;
 }
 img{
     max-height: 80px;
