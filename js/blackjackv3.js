@@ -151,6 +151,7 @@ function checkWinner() {
     $lossTotal.html(`losses: ${loss}`);
     $hit.unbind();
     $stay.unbind();
+    $showVal.toggleClass('hide');
   } else if (player.total > 21) {
     $displayMessage.html(`You went over by ${player.total - 21}. The dealer wins with ${dealer.total}`);
     loss++;
