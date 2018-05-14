@@ -73,6 +73,9 @@ button{
 	        animation: slide-in-tl 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 @media only screen and (max-width: 600px){
+    button{
+        width: 80px;
+    }
     .card{
         max-width: 40%;
     }
