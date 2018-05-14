@@ -5,6 +5,8 @@ body{
     background-image: url('../images/luxury-casino-gambling-poker-background-pattern-vector-8517119.jpg');
     background-size: cover;
     background-position: fixed; 
+    font-family: 'Bitter', serif;
+    color: white;
 }
 header {
   position: fixed;
@@ -15,11 +17,25 @@ header {
   background-color: darkred;
   box-shadow: 0px 1px 20px #444;
 }
-button{
-    padding: 0;
+main{
+    background-color: darkred;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    padding: 10px;
+    margin-bottom: 0;
+    margin-top: 200px;
+    font-family: 'Bitter', serif;
+    color: white;
+    font-size: 30px;
+}
+li{
+    margin: 30px auto;
 }
 img{
-
     height: 110px;
     width: 100%;
 }
@@ -33,5 +49,17 @@ button{
     display: block;
     width: 200px;
     height: 110px;
-    margin-top: 500px;
+    padding: 0;
+    margin-top: 20px;
+}
+@media only screen and (max-width: 600px){
+    h1{
+        font-size: 30px;
+    }
+    li{
+        font-size: 20px;
+    }
+    main{
+        margin-top: 150px;
+    }
 }
