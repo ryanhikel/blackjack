@@ -24,8 +24,13 @@ body{
     margin-top: 110px;
     background-color: rgb(41, 92, 8);
 }
+button{
+    margin: 0 auto 10px;
+    display: block;
+    width: 120px;
+    padding: 10px;
+}
 .display{
-    max-width: 50%;
     text-align: center;
 }
 .flexbox-container{
@@ -40,7 +45,7 @@ body{
     background-size: cover;
 }
 .score-board{
-    max-width: 33%;
+    width: 20%;
 }
 .card{
     height: 120px;

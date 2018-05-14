@@ -14,4 +14,4 @@ One of the biggest ongoing problems I have had was toggling the value of the ace
 Unsolved problems:
 One issue that caused me more trouble than I expected was the CSS. I found that using flexbox was not as clear to me as I originally thought and I needed to look up more on it but I was still unable to make everything stay where it was supposed to when objects were added or removed. Looking at other projects I wonder if I should have attempted to reset my CSS prior to applying any flexbox. Another challenge I had that I was unable to solve was flipping the dealers card over with a css animation. I used another animation from Animista however no matter how I applied it the card would flip upside down.
 
-I would definintly like more time on this project to learn from my mistakes and improve on every aspect as I become more comfortable with it. Id also like to try remake the game in pure JavaScript since I need practice.
+I would definitely like more time on this project to learn from my mistakes and improve on every aspect as I become more comfortable with it. Id also like to try to remake the game in pure JavaScript since I need practice.
