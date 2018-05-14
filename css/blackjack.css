@@ -23,12 +23,23 @@ img{
 body{
     margin-top: 110px;
     background-color: rgb(41, 92, 8);
+    font-family: 'Bitter', serif;
+    color: white;
+}
+div{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-flow: column nowrap;
 }
 button{
     margin: 0 auto 10px;
     display: block;
     width: 120px;
     padding: 10px;
+    font-size: 20px;
+    border-radius: 15%;
 }
 .display{
     text-align: center;
@@ -53,10 +64,10 @@ button{
     border: 2px solid black;
     margin: 10px;
     background-color: white;
-    justify-content: center;
-    align-content: center;
     text-align: center;
+    color: black;
 }
+
 .slide-in-tl {
 	-webkit-animation: slide-in-tl 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	        animation: slide-in-tl 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
