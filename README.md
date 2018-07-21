@@ -1,6 +1,6 @@
 # Ryan Hikel Unit One Project: BlackJack
 
-Link to live game: js-blackjack.surge.sh
+Link to live game: http://js-blackjack.surge.sh/
 
 Technologies used:
 Ive used jQuery for dom selection along with HTML and CSS to display my game. I created the dealers logic through the use of JavaScript which also is used in the functions for creating/ shuffling the deck as well as dealing cards to both the player and dealer. I also used the site Animista for the animation that slid in the cards.
