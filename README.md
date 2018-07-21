@@ -1,4 +1,4 @@
-# Ryan Hikel Unit One Project: BlackJack
+# JavaScript BlackJack
 
 Link to live game: http://js-blackjack.surge.sh/
 
